@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Film, Key, Menu, X, FileText, Shield, HelpCircle } from 'lucide-react'
+import { Film, Key, Menu, X, FileText, Shield, HelpCircle, Youtube } from 'lucide-react'
 
 interface HeaderProps {
   apiKey: string
@@ -15,6 +15,7 @@ const Header = ({ apiKey, onApiKeyChange }: HeaderProps) => {
 
   const menuItems = [
     { path: '/', label: 'בית', icon: Film },
+    { path: 'https://youtube.com/@movies_and_tv_show_recap?si=KmCPgoiLvOaDQlu3', label: 'ערוץ יוטיוב', icon: Youtube, external: true },
     { path: '/faq', label: 'שאלות נפוצות', icon: HelpCircle },
     { path: '/contact', label: 'צור קשר', icon: null },
     { path: '/terms', label: 'תנאי שימוש', icon: FileText },
@@ -43,17 +44,30 @@ const Header = ({ apiKey, onApiKeyChange }: HeaderProps) => {
           {/* תפריט דסקטופ */}
           <nav className="hidden md:flex items-center space-x-8 space-x-reverse">
             {menuItems.map((item) => (
-              <Link
-                key={item.path}
-                to={item.path}
-                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                  location.pathname === item.path
-                    ? 'bg-blue-600 text-white'
-                    : 'text-gray-300 hover:text-white hover:bg-gray-700'
-                }`}
-              >
-                {item.label}
-              </Link>
+              item.external ? (
+                <a
+                  key={item.path}
+                  href={item.path}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors text-gray-300 hover:text-white hover:bg-gray-700"
+                >
+                  {item.icon && <item.icon className="h-5 w-5 ml-2" />}
+                  {item.label}
+                </a>
+              ) : (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                    location.pathname === item.path
+                      ? 'bg-blue-600 text-white'
+                      : 'text-gray-300 hover:text-white hover:bg-gray-700'
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              )
             ))}
           </nav>
 
@@ -116,18 +130,31 @@ const Header = ({ apiKey, onApiKeyChange }: HeaderProps) => {
           >
             <div className="bg-gray-800 rounded-lg p-4">
               {menuItems.map((item) => (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`block w-full text-right px-3 py-2 rounded-md text-sm font-medium transition-colors mb-2 ${
-                    location.pathname === item.path
-                      ? 'bg-blue-600 text-white'
-                      : 'text-gray-300 hover:text-white hover:bg-gray-700'
-                  }`}
-                >
-                  {item.label}
-                </Link>
+                 item.external ? (
+                  <a
+                    key={item.path}
+                    href={item.path}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={'block w-full text-right px-3 py-2 rounded-md text-sm font-medium transition-colors mb-2 text-gray-300 hover:text-white hover:bg-gray-700'}
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`block w-full text-right px-3 py-2 rounded-md text-sm font-medium transition-colors mb-2 ${
+                      location.pathname === item.path
+                        ? 'bg-blue-600 text-white'
+                        : 'text-gray-300 hover:text-white hover:bg-gray-700'
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                )
               ))}
             </div>
           </motion.div>

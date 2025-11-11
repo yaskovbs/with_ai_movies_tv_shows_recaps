@@ -13,6 +13,9 @@ interface AdvancedRecapSettingsProps {
     youtubeChannelId: string
     enableWebSearch: boolean
     enableYoutubeLearning: boolean
+    youtubeDataApiKey: string
+    googleSearchApiKey: string
+    googleSearchEngineId: string
   }
   onSettingsChange: (settings: any) => void
 }
@@ -255,6 +258,39 @@ const AdvancedRecapSettings = ({ settings, onSettingsChange }: AdvancedRecapSett
                 <div className="w-11 h-6 bg-gray-600 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
               </label>
             </div>
+            
+            {settings.enableWebSearch && (
+              <div className="space-y-4 pl-8">
+                <div>
+                  <label className="flex items-center text-sm font-medium text-gray-300 mb-2">
+                    <Search className="h-4 w-4 ml-2" />
+                    Google Search API Key
+                  </label>
+                  <input
+                    type="text"
+                    value={settings.googleSearchApiKey}
+                    onChange={(e) => handleChange('googleSearchApiKey', e.target.value)}
+                    placeholder="הזן את מפתח ה-API של Google Search"
+                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    dir="ltr"
+                  />
+                </div>
+                <div>
+                  <label className="flex items-center text-sm font-medium text-gray-300 mb-2">
+                    <Search className="h-4 w-4 ml-2" />
+                    Search Engine ID
+                  </label>
+                  <input
+                    type="text"
+                    value={settings.googleSearchEngineId}
+                    onChange={(e) => handleChange('googleSearchEngineId', e.target.value)}
+                    placeholder="הזן את מזהה מנוע החיפוש"
+                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    dir="ltr"
+                  />
+                </div>
+              </div>
+            )}
 
             <div className="flex items-center justify-between p-3 bg-gray-700/50 rounded-lg">
               <div className="flex items-center">
@@ -276,22 +312,41 @@ const AdvancedRecapSettings = ({ settings, onSettingsChange }: AdvancedRecapSett
             </div>
 
             {settings.enableYoutubeLearning && (
-              <div>
-                <label className="flex items-center text-sm font-medium text-gray-300 mb-2">
-                  <Youtube className="h-4 w-4 ml-2" />
-                  מזהה ערוץ YouTube (אופציונלי)
-                </label>
-                <input
-                  type="text"
-                  value={settings.youtubeChannelId}
-                  onChange={(e) => handleChange('youtubeChannelId', e.target.value)}
-                  placeholder="לדוגמה: UCxxxxxxxxxxxxxxx"
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  dir="ltr"
-                />
-                <p className="text-xs text-gray-400 mt-1">
-                  המערכת תלמד מהסגנון של הערוץ לשיפור איכות הסיכום
-                </p>
+              <div className="space-y-4 pl-8">
+                <div>
+                  <label className="flex items-center text-sm font-medium text-gray-300 mb-2">
+                    <Youtube className="h-4 w-4 ml-2" />
+                    מפתח YouTube Data API v3 (אופציונלי)
+                  </label>
+                  <input
+                    type="text"
+                    value={settings.youtubeDataApiKey}
+                    onChange={(e) => handleChange('youtubeDataApiKey', e.target.value)}
+                    placeholder="הזן מפתח YouTube Data API v3..."
+                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    dir="ltr"
+                  />
+                   <a href="https://developers.google.com/youtube/v3/getting-started" target="_blank" rel="noopener noreferrer" className="text-xs text-blue-400 mt-1">
+                      איך להשיג מפתח API?
+                  </a>
+                </div>
+                <div>
+                  <label className="flex items-center text-sm font-medium text-gray-300 mb-2">
+                    <Youtube className="h-4 w-4 ml-2" />
+                    קישור ליוטיוב ללמידה (אופציונלי)
+                  </label>
+                  <input
+                    type="text"
+                    value={settings.youtubeChannelId}
+                    onChange={(e) => handleChange('youtubeChannelId', e.target.value)}
+                    placeholder="הדבק כאן קישור לערוץ היוטיוב..."
+                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    dir="ltr"
+                  />
+                  <p className="text-xs text-gray-400 mt-1">
+                    המערכת תלמד מהסגנון של הערוץ לשיפור איכות הסיכום
+                  </p>
+                </div>
               </div>
             )}
 

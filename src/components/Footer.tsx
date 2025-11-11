@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
-import { Film } from 'lucide-react';
+import { Film, Youtube } from 'lucide-react';
 
 const Footer = () => {
   const navLinks = [
     { path: '/', label: 'בית' },
+    { path: 'https://youtube.com/@movies_and_tv_show_recap?si=KmCPgoiLvOaDQlu3', label: 'ערוץ יוטיוב', external: true },
     { path: '/contact', label: 'צור קשר' },
     { path: '/faq', label: 'שאלות נפוצות' },
   ];
@@ -13,12 +14,16 @@ const Footer = () => {
     { path: '/privacy', label: 'מדיניות פרטיות' },
   ];
 
+  const socialLinks = [
+      { path: 'https://youtube.com/@movies_and_tv_show_recap?si=KmCPgoiLvOaDQlu3', label: 'YouTube', icon: Youtube },
+  ]
+
   return (
     <footer className="bg-gray-800 border-t border-gray-700 text-white">
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Logo and About */}
-          <div className="space-y-4">
+          <div className="space-y-4 md:col-span-1">
             <Link to="/">
               <div 
                 className="flex items-center cursor-pointer"
@@ -36,18 +41,22 @@ const Footer = () => {
           </div>
 
           {/* Links */}
-          <div className="md:col-span-2 grid grid-cols-2 sm:grid-cols-3 gap-8">
+          <div className="md:col-span-3 grid grid-cols-2 sm:grid-cols-4 gap-8">
             <div>
               <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">ניווט</h3>
               <ul className="mt-4 space-y-2">
                 {navLinks.map(link => (
                   <li key={link.path}>
-                    <Link
-                      to={link.path}
-                      className="text-base text-gray-300 hover:text-white transition-colors"
-                    >
-                      {link.label}
-                    </Link>
+                    {link.external ? (
+                      <a href={link.path} target="_blank" rel="noopener noreferrer" className="text-base text-gray-300 hover:text-white transition-colors">{link.label}</a>
+                    ) : (
+                      <Link
+                        to={link.path}
+                        className="text-base text-gray-300 hover:text-white transition-colors"
+                      >
+                        {link.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -63,6 +72,24 @@ const Footer = () => {
                     >
                       {link.label}
                     </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">עקבו אחרינו</h3>
+              <ul className="mt-4 space-y-2">
+                {socialLinks.map(link => (
+                  <li key={link.path}>
+                    <a
+                      href={link.path}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-base text-gray-300 hover:text-white transition-colors flex items-center"
+                    >
+                      {link.icon && <link.icon className="h-5 w-5 ml-2" />}
+                      {link.label}
+                    </a>
                   </li>
                 ))}
               </ul>
