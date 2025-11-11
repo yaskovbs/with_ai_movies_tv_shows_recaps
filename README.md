@@ -1,17 +1,25 @@
-# יוצר סיכומי וידאו - Movie & TV Show Recap Maker (גרסה מקומית)
+# יוצר סיכומי וידאו חכם עם AI - Advanced Movie & TV Show Recap Maker
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-פלטפורמה מקומית ליצירת סיכומי וידאו מקצועיים לסרטים וסדרות באמצעות בינה מלאכותית של Google Gemini וטכנולוגיית FFmpeg. **פועלת לחלוטין בדפדפן ללא צורך בשרת חיצוני.**
+פלטפורמה מתקדמת ליצירת סיכומי וידאו מקצועיים עם בינה מלאכותית שלומדת ומשתפרת. המערכת משלבת Google Gemini AI, למידה מיוטיוב, חיפוש באינטרנט ולמידה מתמשכת.
 
 ## ✨ תכונות עיקריות
 
-- 🎬 **עיבוד וידאו מתקדם** - שימוש ב-FFmpeg ישירות בדפדפן
-- 🤖 **בינה מלאכותית** - יצירת תסריטים בעברית באמצעות Google Gemini AI
-- 🔒 **בטוח ומאובטח** - הקבצים שלכם מוגנים והמפתחות לא נשמרים
-- 📱 **ממשק ידידותי** - קל לשימוש לכל הגילאים
-- ⚡ **עיבוד מהיר** - טכנולוגיית AI מתקדמת לעיבוד מהיר ויעיל
-- 📊 **סטטיסטיקות בזמן אמת** - מעקב אחרי השימוש והביצועים
+### תכונות בסיסיות
+- 🎬 **עיבוד וידאו מתקדם** - שימוש ב-FFmpeg.wasm ישירות בדפדפן
+- 🤖 **בינה מלאכותית** - יצירת תסריטים בעברית באמצעות Google Gemini 2.5 Pro
+- 🔒 **בטוח ומאובטח** - הקבצים מעובדים בדפדפן, המפתחות לא נשמרים
+- 📱 **ממשק ידידותי** - עיצוב מודרני ונגיש
+- ⚡ **עיבוד מהיר** - טכנולוגיית WebAssembly לביצועים מקסימליים
+
+### תכונות מתקדמות חדשות
+- 🧠 **למידה מתמשכת** - המערכת לומדת ומשתפרת מכל סיכום
+- 📺 **למידה מיוטיוב** - ניתוח סגנון עריכה מערוצים מצליחים
+- 🔍 **חיפוש חכם** - איסוף מידע נוסף מהאינטרנט לשיפור הדיוק
+- 🎯 **המלצות אוטומטיות** - הגדרות מותאמות לפי ז'אנר על בסיס למידה
+- 💾 **שמירה בענן** - שילוב Supabase לאחסון ושיתוף פרויקטים
+- 📊 **ניתוח מתקדם** - דשבורד עם סטטיסטיקות ותובנות
 
 ## 🚀 התחלה מהירה
 
@@ -35,9 +43,14 @@
    ```
 
 3. **הגדר משתני סביבה:**
-   צור קובץ `.env` בתיקיית השורש והוסף מפתח Google Gemini API:
+   צור קובץ `.env` בתיקיית השורש והוסף את הפרטים הבאים:
    ```env
+   # Google Gemini AI (חובה)
    VITE_GEMINI_API_KEY=your-gemini-api-key
+
+   # Supabase (אופציונלי - למידע על ההתקנה ראה למטה)
+   VITE_SUPABASE_URL=your-supabase-url
+   VITE_SUPABASE_ANON_KEY=your-supabase-anon-key
    ```
 
 4. **הפעל את שרת הפיתוח:**
@@ -50,36 +63,57 @@
 
 ## 📖 איך להשתמש
 
-1. **העלאת וידאו** - גרור קובץ וידאו או בחר מהמחשב
-2. **הגדרות סיכום** - קבע את אורך הסיכום ותאר את הווידאו ל-AI
+### שימוש בסיסי
+1. **העלאת וידאו** - גרור קובץ וידאו (עד 4GB) או בחר מהמחשב
+2. **הגדרות בסיסיות** - קבע אורך סיכום, מרווחי חיתוך ותאר את הווידאו
 3. **יצירת סיכום** - לחץ על הכפתור ותן לקסם לקרות!
+
+### שימוש מתקדם
+1. **מידע על הסרט** - הזן כותרת, ז'אנר ותיאור מפורט
+2. **הפעל למידה מיוטיוב** - הזן מזהה ערוץ YouTube כדי ללמוד מהסגנון
+3. **הפעל חיפוש באינטרנט** - המערכת תאסוף מידע נוסף לשיפור הדיוק
+4. **המלצות AI** - קבל המלצות אוטומטיות על בסיס ז'אנר והיסטוריה
+
+### ערוצי YouTube מומלצים ללמידה
+- ערוצי recap מצליחים כמו MovieRecaps, StoryRecapped
+- ערוצי review כמו Chris Stuckmann, Jeremy Jahns
+- ערוצי ניתוח כמו Nerdwriter1, Every Frame a Painting
 
 ## 🛠️ טכנולוגיות
 
 - **Frontend:** React 19, TypeScript, Vite
 - **UI:** Tailwind CSS, Framer Motion
-- **Video Processing:** FFmpeg (WebAssembly)
+- **Video Processing:** FFmpeg.wasm (WebAssembly)
 - **AI:** Google Gemini 2.5 Pro
-- **Storage:** Local Storage (Browser)
+- **Database:** Supabase (PostgreSQL)
+- **APIs:** YouTube Data API v3, Google Search API
+- **Storage:** Browser LocalStorage + Cloud Database
 - **Icons:** Lucide React
 
 ## 📁 מבנה הפרויקט
 
 ```
 src/
-├── components/          # רכיבי React
-│   ├── HomePage.tsx    # דף הבית הראשי
-│   ├── VideoUploader.tsx
-│   ├── RecapSettings.tsx
-│   ├── ProcessingStatus.tsx
-│   ├── ResultsSection.tsx
-│   └── StatsSection.tsx
+├── components/
+│   ├── HomePage.tsx              # דף בסיסי
+│   ├── AdvancedHomePage.tsx      # דף מתקדם עם AI חכם
+│   ├── AdvancedRecapSettings.tsx # הגדרות מתקדמות
+│   ├── VideoUploader.tsx         # העלאת וידאו
+│   ├── ProcessingStatus.tsx      # סטטוס עיבוד
+│   ├── ResultsSection.tsx        # תוצאות
+│   ├── StatsSection.tsx          # סטטיסטיקות
+│   ├── ContactPage.tsx           # צור קשר
+│   ├── FAQPage.tsx               # שאלות נפוצות
+│   ├── Header.tsx & Footer.tsx   # ניווט
+│   └── ...
+├── services/
+│   └── aiLearningService.ts      # שירותי AI ולמידה
 ├── lib/
-│   ├── localStorage.ts # אחסון מקומי
-│   └── supabase.ts     # חיבור למסד נתונים (לא בשימוש)
+│   ├── localStorage.ts           # אחסון מקומי
+│   └── supabaseClient.ts         # Supabase client
 ├── types/
-│   └── index.ts        # הגדרות TypeScript
-└── App.tsx            # אפליקציית React ראשית
+│   └── index.ts                  # הגדרות TypeScript
+└── App.tsx                       # אפליקציה ראשית
 ```
 
 ## 🔧 סקריפטים זמינים
@@ -88,6 +122,32 @@ src/
 - `npm run build` - בניית הפרויקט לייצור
 - `npm run preview` - תצוגה מקדימה של הבנייה
 - `npm run lint` - בדיקת קוד עם ESLint
+
+## ☁️ התקנת Supabase (אופציונלי אך מומלץ)
+
+התכונות המתקדמות דורשות Supabase לשמירת נתוני למידה:
+
+1. **צור פרויקט ב-Supabase:**
+   - עבור ל-[Supabase Dashboard](https://app.supabase.com/)
+   - צור פרויקט חדש
+
+2. **הפעל את המיגרציות:**
+   - קובץ המיגרציה נמצא במערכת
+   - טבלאות: `movies_metadata`, `recap_projects`, `youtube_learning_sources`, `learning_models`, `web_search_cache`, `user_feedback`
+
+3. **העתק את הפרטים ל-.env:**
+   ```env
+   VITE_SUPABASE_URL=https://your-project.supabase.co
+   VITE_SUPABASE_ANON_KEY=your-anon-key
+   ```
+
+4. **התכונות שיופעלו:**
+   - שמירת פרויקטים בענן
+   - היסטוריית למידה משותפת
+   - סטטיסטיקות מתקדמות
+   - שיתוף פרויקטים בין מכשירים
+
+**שימוש בלי Supabase:** המערכת תמשיך לעבוד במצב מקומי עם LocalStorage.
 
 ## 🤝 תרומה
 
