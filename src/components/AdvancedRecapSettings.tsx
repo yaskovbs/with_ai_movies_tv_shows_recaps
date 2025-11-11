@@ -290,7 +290,8 @@ const AdvancedRecapSettings = ({ settings, onSettingsChange }: AdvancedRecapSett
                   dir="ltr"
                 />
                 <p className="text-xs text-gray-400 mt-1">
-                  המערכת תלמד מהסגנון של הערוץ לשיפור איכות הסיכום
+                  המערכת תלמד מהסגנון של הערוץ לשיפור איכות הסיכום. 
+                  <a href="https://youtube.com/@movies_and_tv_show_recap?si=KmCPgoiLvOaDQlu3" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 underline mr-1">בקר בערוץ שלנו ללמידה</a>
                 </p>
               </div>
             )}

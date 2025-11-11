@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Play, Brain, Sparkles, TrendingUp, CheckCircle2 } from 'lucide-react'
+import { Play, Brain, Sparkles, TrendingUp, CheckCircle2, Youtube } from 'lucide-react'
 import { FFmpeg } from '@ffmpeg/ffmpeg'
 import { fetchFile, toBlobURL } from '@ffmpeg/util'
 import VideoUploader from './VideoUploader'
@@ -274,9 +274,18 @@ const AdvancedHomePage = ({ apiKey }: AdvancedHomePageProps) => {
           <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
             יוצר סיכומי וידאו חכם עם AI
           </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-6">
             מערכת מתקדמת ליצירת סיכומי וידאו עם בינה מלאכותית שלומדת ומשתפרת עם כל סיכום
           </p>
+          <a
+            href="https://youtube.com/@movies_and_tv_show_recap?si=KmCPgoiLvOaDQlu3"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center px-6 py-3 bg-red-600 rounded-lg hover:bg-red-700 transition-colors text-white font-medium"
+          >
+            <Youtube className="h-5 w-5 ml-2" />
+            <span>בקר בערוץ היוטיוב שלנו</span>
+          </a>
         </motion.div>
       </section>
 

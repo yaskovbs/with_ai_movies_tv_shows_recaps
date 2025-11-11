@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Film, Key, Menu, X, FileText, Shield, HelpCircle } from 'lucide-react'
+import { Film, Key, Menu, X, FileText, Shield, HelpCircle, Youtube } from 'lucide-react'
 
 interface HeaderProps {
   apiKey: string
@@ -39,6 +39,17 @@ const Header = ({ apiKey, onApiKeyChange }: HeaderProps) => {
               </div>
             </motion.div>
           </Link>
+
+          {/* YouTube Channel Link - Desktop */}
+          <a
+            href="https://youtube.com/@movies_and_tv_show_recap?si=KmCPgoiLvOaDQlu3"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden md:flex items-center px-3 py-2 bg-red-600 rounded-lg hover:bg-red-700 transition-colors"
+          >
+            <Youtube className="h-5 w-5 ml-2" />
+            <span className="text-sm font-medium">הערוץ שלנו</span>
+          </a>
 
           {/* תפריט דסקטופ */}
           <nav className="hidden md:flex items-center space-x-8 space-x-reverse">
@@ -115,6 +126,15 @@ const Header = ({ apiKey, onApiKeyChange }: HeaderProps) => {
             exit={{ opacity: 0, height: 0 }}
           >
             <div className="bg-gray-800 rounded-lg p-4">
+              <a
+                href="https://youtube.com/@movies_and_tv_show_recap?si=KmCPgoiLvOaDQlu3"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center w-full px-3 py-2 bg-red-600 rounded-lg hover:bg-red-700 transition-colors mb-3"
+              >
+                <Youtube className="h-5 w-5 ml-2" />
+                <span className="text-sm font-medium">הערוץ שלנו ביוטיוב</span>
+              </a>
               {menuItems.map((item) => (
                 <Link
                   key={item.path}
