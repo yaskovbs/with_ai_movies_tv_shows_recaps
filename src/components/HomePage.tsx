@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 import { motion } from 'framer-motion'
-import { Play, Users, Zap, Shield, Cpu } from 'lucide-react'
+import { Play, Users, Zap, Shield, Cpu, Youtube } from 'lucide-react'
 import { FFmpeg } from '@ffmpeg/ffmpeg'
 import { fetchFile, toBlobURL } from '@ffmpeg/util'
 import VideoUploader from './VideoUploader'
@@ -260,11 +260,61 @@ const HomePage = ({ apiKey }: HomePageProps) => {
       <section className="py-20 text-center">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
           <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
-            יוצר סיכומי וידאו
+            יוצר סיכומי וידאו מתקדם
           </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            הפלטפורמה המתקדמת ביותר ליצירת סיכומי וידאו מקצועיים לסרטים וסדרות באמצעות בינה מלאכותית של Google Gemini
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-8">
+            הפלטפורמה המתקדמת ביותר ליצירת סיכומי וידאו מקצועיים לסרטים וסדרות באמצעות בינה מלאכותית של Google Gemini. 
+            הפלטפורמה שלנו מאפשרת לכם ליצור סיכומים איכותיים במהירות ובקלות, עם שליטה מלאה על התוצר הסופי. 
+            בין אם אתם יוצרי תוכן מקצועיים, חובבי סרטים וסדרות, או פשוט רוצים לחסוך זמן בצפייה - הגעתם למקום הנכון!
           </p>
+          <motion.a
+            href="https://youtube.com/@movies_and_tv_show_recap?si=KmCPgoiLvOaDQlu3"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg transition-colors font-semibold"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Youtube className="h-5 w-5 ml-2" />
+            ראו דוגמאות בערוץ YouTube שלנו
+          </motion.a>
+        </motion.div>
+      </section>
+
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+        <motion.div 
+          className="bg-gradient-to-r from-blue-600/10 to-purple-600/10 rounded-lg p-8 border border-blue-600/20"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          <h2 className="text-3xl font-bold text-white mb-6 text-center">איך זה עובד?</h2>
+          <div className="grid md:grid-cols-3 gap-6 text-right">
+            <div className="bg-gray-800/50 rounded-lg p-6">
+              <div className="bg-blue-600 text-white rounded-full h-12 w-12 flex items-center justify-center text-xl font-bold mb-4">1</div>
+              <h3 className="text-xl font-semibold text-white mb-3">העלאת וידאו</h3>
+              <p className="text-gray-300">
+                העלו את קובץ הוידאו המלא שלכם למערכת. אנחנו תומכים בפורמטים הנפוצים ביותר ובקבצים עד 4GB. 
+                המערכת מעבדת את הקובץ בצורה מאובטחת ומוחקת אותו אוטומטית לאחר העיבוד.
+              </p>
+            </div>
+            <div className="bg-gray-800/50 rounded-lg p-6">
+              <div className="bg-purple-600 text-white rounded-full h-12 w-12 flex items-center justify-center text-xl font-bold mb-4">2</div>
+              <h3 className="text-xl font-semibold text-white mb-3">התאמה אישית</h3>
+              <p className="text-gray-300">
+                קבעו את אורך הסיכום הרצוי, את התדירות של חיתוך הקטעים, והוסיפו תיאור מפורט לווידאו. 
+                ככל שהתיאור יהיה מפורט יותר, כך התסריט שיווצר יהיה מדויק ואיכותי יותר.
+              </p>
+            </div>
+            <div className="bg-gray-800/50 rounded-lg p-6">
+              <div className="bg-pink-600 text-white rounded-full h-12 w-12 flex items-center justify-center text-xl font-bold mb-4">3</div>
+              <h3 className="text-xl font-semibold text-white mb-3">קבלת התוצאה</h3>
+              <p className="text-gray-300">
+                המערכת מעבדת את הוידאו עם AI, חותכת את הקטעים הרלוונטיים, ויוצרת תסריט מקצועי באמצעות Gemini AI. 
+                התוצאה מוכנה להורדה תוך דקות ספורות!
+              </p>
+            </div>
+          </div>
         </motion.div>
       </section>
 

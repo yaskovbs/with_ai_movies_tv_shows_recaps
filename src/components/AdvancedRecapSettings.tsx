@@ -292,6 +292,54 @@ const AdvancedRecapSettings = ({ settings, onSettingsChange }: AdvancedRecapSett
                 <p className="text-xs text-gray-400 mt-1">
                   המערכת תלמד מהסגנון של הערוץ לשיפור איכות הסיכום
                 </p>
+                <a 
+                  href="https://developers.google.com/youtube/v3/getting-started"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs text-blue-400 hover:text-blue-300 underline mt-1 inline-block"
+                >
+                  איך להשיג מפתח YouTube Data API
+                </a>
+              </div>
+            )}
+
+            {settings.enableWebSearch && (
+              <div className="space-y-4">
+                <div>
+                  <label className="flex items-center text-sm font-medium text-gray-300 mb-2">
+                    <Search className="h-4 w-4 ml-2" />
+                    Google Search API Key (אופציונלי)
+                  </label>
+                  <input
+                    type="password"
+                    value={settings.googleSearchApiKey || ''}
+                    onChange={(e) => handleChange('googleSearchApiKey', e.target.value)}
+                    placeholder="הזן את מפתח ה-Google Search API שלך..."
+                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    dir="ltr"
+                  />
+                </div>
+                <div>
+                  <label className="flex items-center text-sm font-medium text-gray-300 mb-2">
+                    Search Engine ID
+                  </label>
+                  <input
+                    type="text"
+                    value={settings.searchEngineId || ''}
+                    onChange={(e) => handleChange('searchEngineId', e.target.value)}
+                    placeholder="הזן את ה-Search Engine ID שלך..."
+                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    dir="ltr"
+                  />
+                  <a 
+                    href="https://developers.google.com/custom-search/v1/introduction"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-blue-400 hover:text-blue-300 underline mt-1 inline-block"
+                  >
+                    איך להשיג מפתחות Google Search
+                  </a>
+                </div>
               </div>
             )}
 

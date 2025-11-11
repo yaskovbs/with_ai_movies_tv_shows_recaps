@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Film } from 'lucide-react';
+import { Film, Youtube } from 'lucide-react';
 
 const Footer = () => {
   const navLinks = [
@@ -68,16 +68,38 @@ const Footer = () => {
               </ul>
             </div>
              <div>
-              <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">צור קשר</h3>
-              <ul className="mt-4 space-y-2 text-base text-gray-300">
-                <li>yaskovbs2502@gmail.com</li>
-                <li>050-818-1948</li>
+              <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">עקבו אחרינו</h3>
+              <ul className="mt-4 space-y-2">
+                <li>
+                  <a
+                    href="https://youtube.com/@movies_and_tv_show_recap?si=KmCPgoiLvOaDQlu3"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center text-base text-gray-300 hover:text-red-400 transition-colors"
+                  >
+                    <Youtube className="h-5 w-5 ml-2" />
+                    ערוץ YouTube שלנו
+                  </a>
+                </li>
+                <li className="text-gray-400 text-sm">yaskovbs2502@gmail.com</li>
+                <li className="text-gray-400 text-sm">050-818-1948</li>
               </ul>
             </div>
           </div>
         </div>
-        <div className="mt-12 border-t border-gray-700 pt-8 text-center">
-          <p className="text-base text-gray-400">&copy; {new Date().getFullYear()} Movies & TV Recaps Maker Hub. כל הזכויות שמורות.</p>
+        <div className="mt-12 border-t border-gray-700 pt-8">
+          <div className="flex flex-col md:flex-row items-center justify-between">
+            <p className="text-base text-gray-400 mb-4 md:mb-0">&copy; {new Date().getFullYear()} Movies & TV Recaps Maker Hub. כל הזכויות שמורות.</p>
+            <a
+              href="https://youtube.com/@movies_and_tv_show_recap?si=KmCPgoiLvOaDQlu3"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors"
+            >
+              <Youtube className="h-5 w-5 ml-2" />
+              הצטרפו לערוץ YouTube שלנו
+            </a>
+          </div>
         </div>
       </div>
     </footer>
