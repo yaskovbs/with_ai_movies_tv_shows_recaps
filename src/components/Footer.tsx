@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Film } from 'lucide-react';
+import { Film, Youtube } from 'lucide-react';
 
 const Footer = () => {
   const navLinks = [
@@ -33,6 +33,15 @@ const Footer = () => {
             <p className="text-gray-400 text-sm max-w-xs">
               הפלטפורמה המובילה ליצירת סיכומי וידאו חכמים באמצעות טכנולוגיית AI מתקדמת.
             </p>
+            <a
+              href="https://youtube.com/@movies_and_tv_show_recap?si=KmCPgoiLvOaDQlu3"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center px-4 py-2 bg-red-600 rounded-lg hover:bg-red-700 transition-colors"
+            >
+              <Youtube className="h-5 w-5 ml-2" />
+              <span className="text-sm font-medium">הערוץ שלנו ביוטיוב</span>
+            </a>
           </div>
 
           {/* Links */}
