@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Film, Key, Menu, X, FileText, Shield, HelpCircle } from 'lucide-react'
+import { Film, Key, Menu, X, FileText, Shield, HelpCircle, Youtube } from 'lucide-react'
 
 interface HeaderProps {
   apiKey: string
@@ -57,8 +57,20 @@ const Header = ({ apiKey, onApiKeyChange }: HeaderProps) => {
             ))}
           </nav>
 
-          {/* כפתור API Key */}
+          {/* כפתור API Key וערוץ YouTube */}
           <div className="flex items-center space-x-2 space-x-reverse">
+            <motion.a
+              href="https://youtube.com/@movies_and_tv_show_recap?si=KmCPgoiLvOaDQlu3"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden md:flex items-center px-3 py-2 bg-red-600 rounded-lg hover:bg-red-700 transition-colors"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Youtube className="h-4 w-4 ml-2" />
+              <span className="text-sm">ערוץ YouTube</span>
+            </motion.a>
+            
             <motion.button
               onClick={() => setShowApiInput(!showApiInput)}
               className="flex items-center px-3 py-2 bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
