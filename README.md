@@ -165,7 +165,7 @@ src/
 
 ## 📞 צור קשר
 
-- **דוא"ל:** [your-email@example.com]
+- **דוא"ל:** yaskovbs2502@gmail.com
 - **GitHub Issues:** [פתח issue](https://github.com/your-username/moviesandtvshowsrecapsmakerwithai/issues)
 
 ## 🙏 תודות
