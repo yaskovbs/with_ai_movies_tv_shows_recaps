@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { Play, Users, Zap, Shield, Cpu } from 'lucide-react'
 import { FFmpeg } from '@ffmpeg/ffmpeg'
 import { fetchFile, toBlobURL } from '@ffmpeg/util'
-import VideoUploader from './VideoUploader'
+// import VideoUploader from './VideoUploader' // Removed, as AdvancedHomePage handles media uploads
 import RecapSettings from './RecapSettings'
 import ProcessingStatus from './ProcessingStatus'
 import StatsSection from './StatsSection'
@@ -63,7 +63,7 @@ async function generateScriptWithGemini(description: string, apiKey: string): Pr
 
 
 const HomePage = ({ apiKey }: HomePageProps) => {
-  const [selectedFile, setSelectedFile] = useState<VideoFile | null>(null)
+  // const [selectedFile, setSelectedFile] = useState<VideoFile | null>(null) // Removed, as this page is simplified
   const [settings, setSettings] = useState<RecapSettingsType>({
     duration: 30,
     intervalSeconds: 8,
@@ -76,129 +76,8 @@ const HomePage = ({ apiKey }: HomePageProps) => {
   const ffmpegRef = useRef(new FFmpeg())
 
   const handleCreateRecap = async () => {
-    if (!selectedFile) {
-      alert('אנא בחר קובץ וידאו');
-      return;
-    }
-    if (!apiKey) {
-      alert('אנא הכנס מפתח Gemini AI API');
-      return;
-    }
-    if (!settings.description.trim()) {
-      alert('אנא הכנס תיאור לווידאו');
-      return;
-    }
-
-    setRecapOutput(null);
-    setProcessingStatus({ stage: 'loading_engine', progress: 0, message: 'מתכונן לעיבוד...'});
-    const ffmpeg = ffmpegRef.current;
-    ffmpeg.on('log', ({ message }) => { console.log(message) });
-
-    try {
-      setProcessingStatus({
-        stage: 'loading_engine',
-        progress: 0,
-        message: 'טוען את מנוע הווידאו...'
-      });
-
-      if (!ffmpeg.loaded) {
-        const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm';
-        await ffmpeg.load({
-          coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
-          wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
-        });
-      }
-
-      setProcessingStatus({
-        stage: 'cutting_video',
-        progress: 0,
-        message: 'כותב קובץ למערכת...'
-      });
-      await ffmpeg.writeFile(selectedFile.name, await fetchFile(selectedFile.file));
-
-      ffmpeg.on('progress', ({ progress }) => {
-        if (progress >= 0 && progress <= 1) {
-          setProcessingStatus(prev => ({
-            ...prev!,
-            stage: 'cutting_video',
-            progress: Math.round(progress * 100),
-            message: `חותך קטעים מהווידאו... ${Math.round(progress * 100)}%`
-          }));
-        }
-      });
-
-      const outputFileName = 'recap.mp4';
-      const selectFilter = `select='lt(mod(t,${settings.intervalSeconds}),${settings.captureSeconds})',setpts=N/FRAME_RATE/TB`;
-      await ffmpeg.exec([
-        '-i', selectedFile.name,
-        '-vf', selectFilter,
-        '-an',
-        '-t', `${settings.duration}`,
-        '-y',
-        outputFileName
-      ]);
-
-      const data = await ffmpeg.readFile(outputFileName);
-      const videoUrl = URL.createObjectURL(new Blob([data as unknown as BlobPart], { type: 'video/mp4' }));
-
-      setProcessingStatus({
-        stage: 'generating_script',
-        progress: 0,
-        message: 'יוצר תסריט עם Gemini AI...'
-      });
-      const generatedScript = await generateScriptWithGemini(settings.description, apiKey);
-      
-      setProcessingStatus({
-        stage: 'generating_script',
-        progress: 100,
-        message: 'התסריט נוצר בהצלחה.'
-      });
-      await new Promise(resolve => setTimeout(resolve, 500));
-
-      setProcessingStatus({
-        stage: 'generating_audio',
-        progress: 50,
-        message: 'מכין קריינות אודיו...'
-      });
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
-      setProcessingStatus({
-        stage: 'completed',
-        progress: 100,
-        message: 'הסיכום נוצר בהצלחה!'
-      });
-
-      setRecapOutput({
-        videoUrl: videoUrl,
-        script: generatedScript,
-      });
-
-      // Increment the counter locally
-      await localStorageService.incrementRecapsCreated();
-
-      await ffmpeg.deleteFile(selectedFile.name);
-      await ffmpeg.deleteFile(outputFileName);
-
-    } catch (error: unknown) {
-      console.error("An error occurred during recap creation:", error);
-      let userMessage = 'שגיאה לא ידועה התרחשה. אנא נסה שוב.';
-      if (error instanceof Error) {
-        if (error.message.includes('overloaded')) {
-          userMessage = 'שרתי ה-AI עמוסים כרגע. אנא נסה שוב בעוד מספר דקות.';
-        } else if (error.message.includes('API key')) {
-          userMessage = 'מפתח ה-API אינו תקין. אנא בדוק את המפתח ונסה שוב.';
-        } else if (error.message.includes('FFmpeg')) {
-          userMessage = 'שגיאה בעיבוד הווידאו. אנא ודא שהקובץ תקין ונסה שוב.';
-        } else if (error.message) {
-          userMessage = error.message;
-        }
-      }
-      setProcessingStatus({
-        stage: 'error',
-        progress: 0,
-        message: userMessage
-      });
-    }
+    alert('פונקציונליות העלאת וידאו הועברה לדף המתקדם. אנא עבור לדף המתקדם.'); // Inform user
+    return;
   }
 
   const features = [
@@ -235,7 +114,7 @@ const HomePage = ({ apiKey }: HomePageProps) => {
           <li className="flex items-start">
             <span className="bg-blue-600 text-white rounded-full h-8 w-8 flex items-center justify-center ml-4 flex-shrink-0 text-lg font-bold">1</span>
             <div>
-              <span className="font-semibold text-white">העלאת וידאו:</span> גררו קובץ או בחרו מהמחשב.
+              <span className="font-semibold text-white">העלאת וידאו:</span> פונקציונליות זו הועברה לדף המתקדם.
             </div>
           </li>
           <li className="flex items-start">
@@ -271,22 +150,22 @@ const HomePage = ({ apiKey }: HomePageProps) => {
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
         <div className="grid lg:grid-cols-2 gap-8">
           <div className="space-y-6">
-            <VideoUploader
-              selectedFile={selectedFile}
-              onFileSelect={setSelectedFile}
-              onRemoveFile={() => setSelectedFile(null)}
-            />
+            <div className="bg-gray-800 rounded-lg p-6 border-2 border-gray-600 text-gray-400 text-center">
+              <p>העלאת קובץ וידאו אינה זמינה כרגע בדף זה.</p>
+              <p>אנא השתמש בדף המתקדם להעלאת קבצי מדיה.</p>
+            </div>
+
             <RecapSettings settings={settings} onSettingsChange={setSettings} />
             <motion.button
               onClick={handleCreateRecap}
-              disabled={!selectedFile || !apiKey || isProcessing}
+              disabled={!apiKey || isProcessing}
               className={`w-full py-4 px-6 rounded-lg font-semibold text-lg transition-all ${
-                selectedFile && apiKey && !isProcessing
+                apiKey && !isProcessing
                   ? 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white'
                   : 'bg-gray-700 text-gray-400 cursor-not-allowed'
               }`}
-              whileHover={{ scale: (selectedFile && apiKey && !isProcessing) ? 1.02 : 1 }}
-              whileTap={{ scale: (selectedFile && apiKey && !isProcessing) ? 0.98 : 1 }}
+              whileHover={{ scale: (apiKey && !isProcessing) ? 1.02 : 1 }}
+              whileTap={{ scale: (apiKey && !isProcessing) ? 0.98 : 1 }}
             >
               <Play className="inline-block h-5 w-5 ml-2" />
               {isProcessing ? 'מעבד...' : 'צור סיכום וידאו'}

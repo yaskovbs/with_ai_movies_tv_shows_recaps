@@ -15,7 +15,7 @@ const Header = ({ apiKey, onApiKeyChange }: HeaderProps) => {
 
   const menuItems = [
     { path: '/', label: 'בית', icon: Film },
-    { path: 'https://youtube.com/@movies_and_tv_show_recap?si=KmCPgoiLvOaDQlu3', label: 'ערוץ יוטיוב', icon: Youtube, external: true },
+    { path: 'https://youtube.com/@movies_and_tv_show_recap?si=NsH4PMZBdOx7eXFG', label: 'ערוץ יוטיוב', icon: Youtube, external: true },
     { path: '/faq', label: 'שאלות נפוצות', icon: HelpCircle },
     { path: '/contact', label: 'צור קשר', icon: null },
     { path: '/terms', label: 'תנאי שימוש', icon: FileText },

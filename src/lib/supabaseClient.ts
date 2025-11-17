@@ -47,6 +47,16 @@ export interface YoutubeLearningSource {
   created_at: string
 }
 
+// New interface for app-wide statistics
+export interface AppStats {
+  id: number;
+  recaps_created: number;
+  total_rating_sum: number;
+  rating_count: number;
+  active_users: number; // This might be better tracked differently (e.g., daily unique users)
+  created_at: string;
+}
+
 export class SupabaseService {
   async createMovieMetadata(data: Partial<MovieMetadata>): Promise<MovieMetadata | null> {
     const { data: movie, error } = await supabase
@@ -174,6 +184,76 @@ export class SupabaseService {
     }
 
     return true
+  }
+
+  // New method to get app-wide statistics
+  async getAppStats(): Promise<AppStats | null> {
+    const { data, error } = await supabase
+      .from('app_stats')
+      .select('*')
+      .limit(1)
+      .maybeSingle(); // Assuming a single row for app stats
+
+    if (error) {
+      console.error('Error fetching app stats:', error);
+      return null;
+    }
+
+    // If no stats exist, initialize default ones
+    if (!data) {
+      const initialStats: AppStats = {
+        id: 1,
+        recaps_created: 0,
+        total_rating_sum: 0,
+        rating_count: 0,
+        active_users: 0,
+        created_at: new Date().toISOString()
+      };
+      const { data: newStats, error: insertError } = await supabase
+        .from('app_stats')
+        .insert([initialStats])
+        .select()
+        .maybeSingle();
+
+      if (insertError) {
+        console.error('Error initializing app stats:', insertError);
+        return null;
+      }
+      return newStats;
+    }
+
+    return data;
+  }
+
+  // New method to update app-wide statistics
+  async updateAppStats(updates: Partial<AppStats>): Promise<boolean> {
+    const { error } = await supabase
+      .from('app_stats')
+      .update(updates)
+      .eq('id', 1); // Assuming a single row with id = 1 for app stats
+
+    if (error) {
+      console.error('Error updating app stats:', error);
+      return false;
+    }
+
+    return true;
+  }
+
+  // New method to add an app-wide rating
+  async addAppRating(rating: number): Promise<boolean> {
+    const currentStats = await this.getAppStats();
+    if (!currentStats) {
+      console.error('Could not retrieve app stats to add rating.');
+      return false;
+    }
+
+    const updates: Partial<AppStats> = {
+      total_rating_sum: (currentStats.total_rating_sum || 0) + rating,
+      rating_count: (currentStats.rating_count || 0) + 1,
+    };
+
+    return this.updateAppStats(updates);
   }
 }
 

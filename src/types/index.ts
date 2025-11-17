@@ -6,6 +6,22 @@ export interface VideoFile {
   file: File
 }
 
+export interface AudioFile {
+  id: string
+  name: string
+  size: number
+  type: string
+  file: File
+}
+
+export interface ScriptFile {
+  id: string
+  name: string
+  size: number
+  type: string
+  file: File
+}
+
 export interface RecapSettings {
   duration: number // בשניות
   intervalSeconds: number // כל כמה שניות לחתוך

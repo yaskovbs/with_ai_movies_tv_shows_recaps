@@ -5,6 +5,6 @@ export default defineConfig({
   plugins: [react()],
   
   optimizeDeps: {
-    exclude: ['lucide-react', '@ffmpeg/ffmpeg', '@ffmpeg/util'],
+    exclude: ['@ffmpeg/ffmpeg', '@ffmpeg/util'],
   },
 });

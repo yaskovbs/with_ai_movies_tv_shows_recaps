@@ -4,7 +4,7 @@ import { Film, Youtube } from 'lucide-react';
 const Footer = () => {
   const navLinks = [
     { path: '/', label: 'בית' },
-    { path: 'https://youtube.com/@movies_and_tv_show_recap?si=KmCPgoiLvOaDQlu3', label: 'ערוץ יוטיוב', external: true },
+    { path: 'https://youtube.com/@movies_and_tv_show_recap?si=NsH4PMZBdOx7eXFG', label: 'ערוץ יוטיוב', external: true },
     { path: '/contact', label: 'צור קשר' },
     { path: '/faq', label: 'שאלות נפוצות' },
   ];
@@ -15,7 +15,7 @@ const Footer = () => {
   ];
 
   const socialLinks = [
-      { path: 'https://youtube.com/@movies_and_tv_show_recap?si=KmCPgoiLvOaDQlu3', label: 'YouTube', icon: Youtube },
+      { path: 'https://youtube.com/@movies_and_tv_show_recap?si=NsH4PMZBdOx7eXFG', label: 'YouTube', icon: Youtube },
   ]
 
   return (

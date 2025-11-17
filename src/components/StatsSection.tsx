@@ -1,7 +1,8 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useContext } from 'react'
 import { motion } from 'framer-motion'
 import { BarChart3, Users, Zap, Star, Loader2 } from 'lucide-react'
-import { localStorageService } from '../lib/localStorage'
+import { supabaseService, AppStats as SupabaseAppStats } from '../lib/supabaseClient'
+import { AuthContext } from '../context/AuthContext'
 
 interface AppStats {
   recaps_created: number;
@@ -16,25 +17,40 @@ const StatsSection = () => {
   const [userRating, setUserRating] = useState<number>(0);
   const [isRating, setIsRating] = useState(false);
   const [hasRated, setHasRated] = useState<boolean>(() => {
+    // Check local storage for a persisted rating status
     return localStorage.getItem('hasRated') === 'true';
   });
 
+  const { user } = useContext(AuthContext);
+
   const fetchStats = useCallback(async () => {
     try {
-      const data = await localStorageService.getPublicStats();
-      if (data && data.length > 0) {
-        setStats(data[0]);
+      // Fetch app-wide statistics from Supabase
+      const supabaseStats: SupabaseAppStats | null = await supabaseService.getAppStats();
+
+      // Fetch user-specific recap count from Supabase if user is logged in
+      let userRecapsCreated = 0;
+      if (user?.id) {
+        const userProjects = await supabaseService.getRecapProjects(user.id);
+        userRecapsCreated = userProjects.length;
+      }
+
+      if (supabaseStats) {
+        setStats({
+          recaps_created: userRecapsCreated, // Use user-specific recap count
+          total_rating_sum: supabaseStats.total_rating_sum,
+          rating_count: supabaseStats.rating_count,
+          active_users: supabaseStats.active_users, // This should come from a more robust Supabase query for active users
+        });
       }
     } catch (error) {
       console.error('Error fetching stats:', error);
     }
-
-    if (loading) setLoading(false);
-  }, [loading]);
+    setLoading(false);
+  }, [user?.id]);
 
   useEffect(() => {
     fetchStats();
-    // No real-time updates needed for local storage
   }, [fetchStats]);
 
   const handleRating = async (rating: number) => {
@@ -43,11 +59,16 @@ const StatsSection = () => {
     setUserRating(rating);
 
     try {
-      await localStorageService.addRating(rating);
-      setHasRated(true);
-      localStorage.setItem('hasRated', 'true');
-      // Refresh stats to show updated rating
-      fetchStats();
+      // Add rating to Supabase
+      const success = await supabaseService.addAppRating(rating);
+      if (success) {
+        setHasRated(true);
+        localStorage.setItem('hasRated', 'true'); // Persist rating status
+        // Refresh stats to show updated rating
+        fetchStats();
+      } else {
+        alert('שגיאה בשליחת הדירוג. אנא נסה שוב.');
+      }
     } catch (error) {
       console.error('Failed to submit rating:', error);
       alert('שגיאה בשליחת הדירוג. אנא נסה שוב.');
@@ -100,6 +121,30 @@ const StatsSection = () => {
   return (
     <section className="bg-gray-800 py-16">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* My Saved Summaries - This section should likely be in a different component for user-specific data */}
+        {user && (
+          <motion.div
+            className="text-center mb-12 bg-gray-700 rounded-lg p-8"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              הסיכומים השמורים שלי
+            </h2>
+            <p className="text-gray-400 text-lg mb-4">
+              הסיכומים שיצרת שמורים כאן באופן פרטי ובטוח. רק לך יש גישה אליהם.
+            </p>
+            <p className="text-white text-5xl font-bold">
+              {stats?.recaps_created.toLocaleString() || '0'}
+            </p>
+            <p className="text-gray-400 text-lg mt-2">
+              סיכומים שיצרת
+            </p>
+          </motion.div>
+        )}
+
         <motion.div
           className="text-center mb-12"
           initial={{ opacity: 0, y: 30 }}
